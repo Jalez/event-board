@@ -15,6 +15,10 @@ const LogSchema = mongoose.Schema({
 		type: Boolean,
 		required: true,
 	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
 	assignedTo: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'employees',
