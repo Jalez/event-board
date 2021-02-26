@@ -1,11 +1,17 @@
 /** @format */
 
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const LogSchema = mongoose.Schema({
+const IssueSchema = Schema({
 	createdBy: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'employees',
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
+	title: {
+		type: String,
+		required: true,
 	},
 	description: {
 		type: String,
@@ -19,10 +25,12 @@ const LogSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	assignedTo: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'employees',
-	},
+	assignedTo: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'User',
+		},
+	],
 });
 
 module.exports = mongoose.model('Log', LogSchema);
