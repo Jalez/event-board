@@ -1,6 +1,8 @@
 /** @format */
 
 const mongoose = require('mongoose');
+const jsw = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = mongoose.Schema({
 	name: {
@@ -21,7 +23,7 @@ const UserSchema = mongoose.Schema({
 	},
 	role: {
 		type: String,
-		enum: ['user', 'developer'],
+		enum: ['employer', 'employee', 'developer'],
 		default: 'user',
 	},
 	phone: {

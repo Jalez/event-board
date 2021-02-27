@@ -13,6 +13,9 @@ const IssueSchema = Schema({
 		type: String,
 		required: true,
 	},
+	slug: {
+		type: String,
+	},
 	description: {
 		type: String,
 		required: true,
@@ -34,9 +37,9 @@ const IssueSchema = Schema({
 });
 
 //Create an issue slug from the title
-BootcampSchema.pre('save', function (next) {
+IssueSchema.pre('save', function (next) {
 	this.slug = slugify(this.name, { lower: true });
 	next();
 });
 
-module.exports = mongoose.model('Log', LogSchema);
+module.exports = mongoose.model('Issue', IssueSchema);
