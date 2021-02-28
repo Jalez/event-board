@@ -16,9 +16,10 @@ const UserSchema = mongoose.Schema({
 			'Please add a valid email',
 		],
 		required: [true, 'email is required'],
+		unique: [true, 'Email already in use'],
 	},
 	photo: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: mongoose.Schema.ObjectId,
 		ref: 'pictures',
 	},
 	role: {

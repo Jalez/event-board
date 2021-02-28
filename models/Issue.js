@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const IssueSchema = Schema({
 	createdBy: {
-		type: Schema.Types.ObjectId,
+		type: Schema.ObjectId,
 		ref: 'User',
 		required: true,
 	},
@@ -20,20 +20,30 @@ const IssueSchema = Schema({
 		type: String,
 		required: true,
 	},
-	solved: {
+	progress: {
 		type: Boolean,
 		required: true,
 	},
+	commentSection: {
+		type: Schema.ObjectId,
+		ref: 'CommentSection',
+	},
+	assignedTo: [
+		{
+			type: Schema.ObjectId,
+			ref: 'User',
+		},
+	],
 	createdAt: {
 		type: Date,
 		default: Date.now,
 	},
-	assignedTo: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'User',
-		},
-	],
+	numberOfComments: {
+		type: Number,
+	},
+	modifiedAt: {
+		type: Date,
+	},
 });
 
 //Create an issue slug from the title

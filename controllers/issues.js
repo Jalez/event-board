@@ -1,5 +1,6 @@
 /** @format */
 
+const asyncHandler = require('../middleware/async');
 const Issue = require('../models/Issue');
 const ErrorResponse = require('../utils/errorResponse');
 
@@ -8,26 +9,21 @@ const ErrorResponse = require('../utils/errorResponse');
  * @route GET api/issues
  * @access Public
  */
-exports.getIssues = async (req, res, next) => {
-	console.log(req.headers);
-	try {
-		const issues = await Issue.find();
-		res.status(200).json({ success: true, data: issues });
-	} catch (error) {
-		console.log(error);
-	}
-};
+exports.getIssues = asyncHandler(async (req, res, next) => {
+	console.log('getIssues controller');
+	const issues = await Issue.find();
+	res.status(200).json({ success: true, data: issues });
+});
 
 /**
  * @description Controller. Create a new issue
  * @route POST api/issues
  * @access Private
  */
-exports.createIssue = async (req, res) => {
-	try {
-		console.log('createIssue controller');
-	} catch (error) {}
-};
+exports.createIssue = asyncHandler(async (req, res, next) => {
+	const newIssue = await Issue.create(req.body);
+	res.status(201).json({ success: true, data: newIssue });
+});
 
 /**
  * @description Controller. Get a single issue

@@ -1,5 +1,6 @@
 /** @format */
 
+const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
 
@@ -15,7 +16,6 @@ const ErrorResponse = require('../utils/errorResponse');
 
 exports.getUsers = async (req, res, next) => {
 	try {
-		console.log('getUsers controller');
 		const users = await User.find();
 		res.status(200).json({ success: true, data: users });
 	} catch (error) {
@@ -31,20 +31,14 @@ exports.getUsers = async (req, res, next) => {
  * @param {Response} res
  * @param {} next
  */
-exports.createUser = async (req, res, next) => {
-	try {
-		const user = await User.create(req.body);
-		console.log('createUser controller');
-		// console.log('Body: ' + body);
-		res.status(200).json({ success: true, data: user });
-	} catch (error) {
-		next(new ErrorResponse(error, 400));
-	}
-};
+exports.createUser = asyncHandler(async (req, res, next) => {
+	const user = await User.create(req.body);
+	res.status(200).json({ success: true, data: user });
+});
 
 /**
  * @description Get a single user
- * @path GET api/users/:id
+ * @path GET api/users/:userId
  * @access Private
  *
  * @param {Response} res
@@ -52,47 +46,38 @@ exports.createUser = async (req, res, next) => {
  * @param {} next
  */
 
-exports.getUser = async (req, res, next) => {
-	try {
-		console.log('getUser controller');
-		res.status(200).json({ success: true, data: 'test' });
-	} catch (error) {
-		next(new ErrorResponse(error, 400));
-	}
-};
+exports.getUser = asyncHandler(async (req, res, next) => {
+	const user = await User.findById(req.params.userId);
+	res.status(200).json({ success: true, data: user });
+});
 
 /**
  * @description Update a single user
- * @path PUT api/users/:id
+ * @path PUT api/users/:userId
  * @access Private
  *
  * @param {Response} res
  * @param {Request} req
  * @param {Next} next
  */
-exports.updateUser = async (req, res, next) => {
-	try {
-		console.log('updateUser controller');
-		res.status(200).json({ success: true, data: 'test' });
-	} catch (error) {
-		next(new ErrorResponse(error, 400));
-	}
-};
+exports.updateUser = asyncHandler(async (req, res, next) => {
+	const updatedUser = await User.updateOne(req.oldResource, req.body, {
+		new: true,
+		runValidators: true,
+	});
+	res.status(200).json({ success: true, data: updatedUser });
+});
 
 /**
  * @description Delete a single user
- * @path DELETE api/users/:id
+ * @path DELETE api/users/:userId
  * @access Public
  *
  * @param {Response} res
  * @param {Request} req
  * @param {} next
  */
-exports.deleteUser = async (req, res, next) => {
-	try {
-		console.log('deleteUser controller');
-		res.status(200).json({ success: true, data: 'test' });
-	} catch (error) {
-		next(new ErrorResponse(error, 400));
-	}
-};
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+	await User.deleteOne(req.oldResource);
+	res.status(200).json({ success: true });
+});
