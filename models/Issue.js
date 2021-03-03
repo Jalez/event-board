@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const slugify = require('slugify');
 
 const IssueSchema = Schema({
 	createdBy: {
@@ -20,13 +21,8 @@ const IssueSchema = Schema({
 		type: String,
 		required: true,
 	},
-	progress: {
+	finished: {
 		type: Boolean,
-		required: true,
-	},
-	commentSection: {
-		type: Schema.ObjectId,
-		ref: 'CommentSection',
 	},
 	assignedTo: [
 		{

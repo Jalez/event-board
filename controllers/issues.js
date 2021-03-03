@@ -26,33 +26,44 @@ exports.createIssue = asyncHandler(async (req, res, next) => {
 
 /**
  * @description Controller. Get a single issue
- * @route GET api/issues/:id
+ * @route GET api/issues/:issueId
  * @access Private
  */
-exports.getIssue = async (req, res) => {
-	try {
-		console.log('getIssue controller');
-	} catch (error) {}
-};
+exports.getIssue = asyncHandler(async (req, res, next) => {
+	const issue = await Issue.findById(req.params.issueId);
+	res.status(200).json({
+		success: true,
+		data: issue,
+	});
+});
 
 /**
  * @description Controller. Update a single issue
- * @route PUT api/issues/:id
+ * @route PUT api/issues/:issueId
  * @access Private
  */
-exports.updateIssue = async (req, res) => {
-	try {
-		console.log('updateIssue Controller');
-	} catch (error) {}
-};
+exports.updateIssue = asyncHandler(async (req, res, next) => {
+	const oldResource = req.oldResource;
+	const update = req.body;
+	update.modifiedAt = new Date(Date.now());
+
+	const updatedResource = await Issue.findByIdAndUpdate(
+		req.params.issueId,
+		update,
+		{
+			new: true,
+			runValidators: true,
+		}
+	);
+
+	res.status(200).json({ success: true, data: updatedResource });
+});
 
 /**
  * @description Controller. Delete a single issue
- * @route DELETE api/issues/:id
+ * @route DELETE api/issues/:issueId
  * @access Private
  */
-exports.deleteIssue = async (req, res) => {
-	try {
-		console.log('createIssue controller');
-	} catch (error) {}
-};
+exports.deleteIssue = asyncHandler(async (req, res, next) => {
+	req.oldResource.remove();
+});
