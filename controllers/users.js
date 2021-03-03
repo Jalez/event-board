@@ -13,7 +13,6 @@ const ErrorResponse = require('../utils/errorResponse');
  * @param {*} req
  * @param {*} next
  */
-
 exports.getUsers = asyncHandler(async (req, res, next) => {
 	const users = await User.find();
 	res.status(200).json({ success: true, data: users });
@@ -27,11 +26,11 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
  * @param {Response} res
  * @param {} next
  */
+
 exports.createUser = asyncHandler(async (req, res, next) => {
 	const user = await User.create(req.body);
 	res.status(200).json({ success: true, data: user });
 });
-
 /**
  * @description Get a single user
  * @path GET api/users/:userId
@@ -41,7 +40,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
  * @param {Request} req
  * @param {} next
  */
-
 exports.getUser = asyncHandler(async (req, res, next) => {
 	const user = await User.findById(req.params.userId);
 	res.status(200).json({ success: true, data: user });

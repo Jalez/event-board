@@ -45,23 +45,27 @@ CommentSchema.statics.countComments = async function (
 ) {
 	//Pipeline
 	// https://docs.mongodb.com/manual/core/aggregation-pipeline/
-	const arr = await this.aggregate([
+	const commentsOfParentArray = await this.aggregate([
 		{ $match: { parent: parentId } },
 		{ $count: 'len' },
 	]);
-	console.log(arr);
-	const len = arr[0]?.len;
+	const commentsOfIssueArray = await this.aggregate([
+		{ $match: { issue: issueId } },
+		{ $count: 'len' },
+	]);
+
+	const parentCommentsComments = commentsOfParentArray[0]?.len;
+	const issueCommentsCount = commentsOfIssueArray[0]?.len;
 	try {
 		if (parentModel === childModel) {
 			await this.model(`${parentModel}`).findByIdAndUpdate(parentId, {
-				numberOfChildren: len ? len : 0,
+				numberOfChildren: parentCommentsComments ? parentCommentsComments : 0,
 			});
 		}
 		if (issueId) {
-			const commentsOfIssue = await this.model(childModel).find({
-				issue: issueId,
+			await this.model(`Issue`).findByIdAndUpdate(issueId, {
+				numberOfChildren: issueCommentsCount ? issueCommentsCount : 0,
 			});
-			const Issue = await this.model('Issue').findById(issueId);
 		}
 	} catch (error) {
 		console.log('countComment Error: ' + error);
@@ -90,6 +94,7 @@ CommentSchema.post('remove', async function () {
 
 //Delete all child comments before remove
 CommentSchema.pre('remove', async function () {
+	console.log(this);
 	console.log(`Comments being removed from comment ${this._id}`);
 	await this.model('Comment').deleteMany({ parent: this._id });
 });

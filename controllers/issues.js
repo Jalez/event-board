@@ -65,5 +65,7 @@ exports.updateIssue = asyncHandler(async (req, res, next) => {
  * @access Private
  */
 exports.deleteIssue = asyncHandler(async (req, res, next) => {
+	console.log(req.oldResource);
 	req.oldResource.remove();
+	res.status(200).json({ success: true });
 });
