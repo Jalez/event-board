@@ -25,13 +25,13 @@ app.use('/api', require('./router'));
 //Whenever next is called in the routes, this errorHandler receives
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
 	console.log(`Listening at http://localhost:${process.env.PORT}`);
 });
 
 //Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-	console.log(`Server.js (Line 104): Error: ${err.message}`.red.bold);
+	console.log(`Server.js (Line 34): Error: ${err.message}`.red.bold);
 	//Close server & exit process
 	server.close(() => process.exit(1));
 });

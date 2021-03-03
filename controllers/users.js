@@ -14,14 +14,10 @@ const ErrorResponse = require('../utils/errorResponse');
  * @param {*} next
  */
 
-exports.getUsers = async (req, res, next) => {
-	try {
-		const users = await User.find();
-		res.status(200).json({ success: true, data: users });
-	} catch (error) {
-		next(new ErrorResponse(error, 400));
-	}
-};
+exports.getUsers = asyncHandler(async (req, res, next) => {
+	const users = await User.find();
+	res.status(200).json({ success: true, data: users });
+});
 /**
  * @description Create a new user
  * @path POST api/users

@@ -26,7 +26,6 @@ const CommentSchema = Schema({
 	},
 	parentModel: {
 		type: String,
-		required: true,
 		enum: ['Issue', 'Comment'],
 	},
 	numberOfChildren: {
@@ -37,41 +36,62 @@ const CommentSchema = Schema({
 	},
 });
 
-//Static method to get avg of course tuitions
-CommentSchema.statics.getAverageRating = async function (parent, parentModel) {
-	// console.log('Calculating avg cost...'.blue.inverse);
-
+//Static method to
+CommentSchema.statics.countComments = async function (
+	parentId,
+	parentModel,
+	childModel,
+	issueId
+) {
 	//Pipeline
 	// https://docs.mongodb.com/manual/core/aggregation-pipeline/
 	const arr = await this.aggregate([
-		{
-			$match: { bootcamp: bootcampId },
-		},
-		{
-			$group: {
-				_id: '$bootcamp',
-				averageRating: { $avg: '$rating' },
-			},
-		},
+		{ $match: { parent: parentId } },
+		{ $count: 'len' },
 	]);
-
+	console.log(arr);
+	const len = arr[0]?.len;
 	try {
-		await this.model(`${parentModel}`).findByIdAndUpdate(bootcampId, {
-			averageRating: arr[0].averageRating,
-		});
+		if (parentModel === childModel) {
+			await this.model(`${parentModel}`).findByIdAndUpdate(parentId, {
+				numberOfChildren: len ? len : 0,
+			});
+		}
+		if (issueId) {
+			const commentsOfIssue = await this.model(childModel).find({
+				issue: issueId,
+			});
+			const Issue = await this.model('Issue').findById(issueId);
+		}
 	} catch (error) {
-		console.log('Course Error: ' + error);
+		console.log('countComment Error: ' + error);
 	}
 };
 
-// Call getAverageCost after save
-CommentSchema.post('save', function () {
-	this.constructor.getAverageRating(this.parent, this.parentModel);
+// Recount comments after save is called
+CommentSchema.post('save', async function () {
+	this.constructor.countComments(
+		this.parent,
+		this.parentModel,
+		'Comment',
+		this.issue
+	);
+});
+//Recount comments after remove is called.
+CommentSchema.post('remove', async function () {
+	console.log('Updating comment count');
+	await this.constructor.countComments(
+		this.parent,
+		this.parentModel,
+		'Comment',
+		this.issue
+	);
 });
 
-//Call getAverageCost before remove
-CommentSchema.pre('remove', function () {
-	this.constructor.getAverageRating(this.bootcamp);
+//Delete all child comments before remove
+CommentSchema.pre('remove', async function () {
+	console.log(`Comments being removed from comment ${this._id}`);
+	await this.model('Comment').deleteMany({ parent: this._id });
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

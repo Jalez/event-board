@@ -10,7 +10,6 @@ const ErrorResponse = require('../utils/errorResponse');
  * @access Public
  */
 exports.getIssues = asyncHandler(async (req, res, next) => {
-	console.log('getIssues controller');
 	const issues = await Issue.find();
 	res.status(200).json({ success: true, data: issues });
 });

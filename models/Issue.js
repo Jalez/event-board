@@ -38,7 +38,7 @@ const IssueSchema = Schema({
 		type: Date,
 		default: Date.now,
 	},
-	numberOfComments: {
+	numberOfChildren: {
 		type: Number,
 	},
 	modifiedAt: {

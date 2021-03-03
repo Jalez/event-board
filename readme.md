@@ -83,6 +83,8 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
+This is a MERN stack application that I built to familiarize myself more with the syntax of React and Redux. It also serves as a training excercise in learning how to build RESTfull API that uses URI's to address resources and follows a typical MVC-architecture in design. The SPA uses a monolithic architecture where we have a single server with a single MongoDB database for the frontside to work with.
+
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
