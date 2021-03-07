@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
+import React from 'react';
+import BottomNavBar from './components/layout/BottomNavBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { teal } from '@material-ui/core/colors';
+import MapContainer from './components/layout/MapContainer';
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: teal[800],
+		},
+		secondary: {
+			main: teal[400],
+		},
+	},
+});
+
+const App = () => {
+	return (
+		<>
+			<ThemeProvider theme={theme}>
+				<MapContainer />
+				<BottomNavBar />
+			</ThemeProvider>
+		</>
+	);
+};
+
+/* <Grid item xs={12} lg={3} sm={4}>
+						<Content />
+					</Grid> */
 
 export default App;

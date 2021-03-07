@@ -52,7 +52,6 @@ IssueSchema.pre('save', function (next) {
 
 //Before removing, delete all comments of the issue
 IssueSchema.pre('remove', async function () {
-	console.log(this);
 	console.log(`Comments being removed from issue ${this._id}`);
 	await Comment.deleteMany({ issue: this._id });
 });
