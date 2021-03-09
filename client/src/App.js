@@ -1,10 +1,10 @@
 /** @format */
 import React from 'react';
-import BottomNavBar from './components/layout/BottomNavBar';
+import BottomNavBar from './components/layout/bottomNavBar/BottomNavBar';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
-import MapContainer from './components/layout/MapContainer';
+import MapContainer from './components/layout/mapContainer/MapContainer';
 
 const theme = createMuiTheme({
 	palette: {
