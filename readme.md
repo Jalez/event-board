@@ -35,15 +35,16 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center"> </h3>
+  <h3 align="center">Rario</h3>
 
   <p align="center">
-    A platform for people in need- be it for people with odd jobs needing a helping hand, or to put food on the table.  
+    A Bulletin Board that lets users view local events/happenings in real time- in Tampere. Users log in and local events are delivered to them through an interactive map. It’s a full-stack application to be developed using modern conventions such as
+microservice architecture, containerization, Reactjs library aswell as material-ui. 
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/github_username/repo_name">View Demo(Not available)</a>
     ·
     <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
     ·
@@ -83,16 +84,55 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-This is a MERN stack application that I built to familiarize myself more with the syntax of React and Redux. It also serves as a training excercise in learning how to build RESTfull API that uses URI's to address resources and follows a typical MVC-architecture in design. The SPA uses a monolithic architecture where we have a single server with a single MongoDB database for the frontside to work with.
+### Functionality
+The application will have the following main functionality:
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
+Client events:
+* **REQUIRED** - Drawers: Menu
+  * Player can navigate to the settings through a drawer-menu.
+* **REQUIRED** - Drag and drop: friends to events.
+  * Players can select friends from their list and drop them over the events in the map to invite them to the event.
+* **REQUIRED** - Snackbar: Notifications
+  * Player is notified of updates and changes
+
+Client dynamic manipulation (user):
+* **REQUIRED** - “Login/logout” (Buttons/Form)
+  * Login details: Undo and Redo?
+* **REQUIRED** - “Search” (search-bar)
+  * Search for events 
+  * Display current events by Type
+* **REQUIRED** - “Display event info”  (event-icon-button on map)
+  * Display info that’s available on the event
+* **REQUIRED** - “Locate me” (GPS-icon-button)
+  * Find the user on the map
+* *OPTIONAL* – “Locate friend” (GPS)
+  * Send current location to friend.
+* *OPTIONAL*- Chat with friends
+  * Send and receive messages from friends through wb-protocol.
+  * Database dynamic manipulation:
+* **REQUIRED** - User Account:
+  * Add new user
+  * remove user
+* **REQUIRED** - Events:
+  * ADD a rating (max 5 stars) to an event
+  * ADD a new event
+  * UPDATE a new event (If owner)
+  * REMOVE a new event (if owner)
+* *OPTIONAL* - Friends
+  * ADD new friend
+  * GET friends
+  * REMOVE friend
+* **REQUIRED** - Settings:
+  * Dark-mode: on/off
+  * Language: Finnish/English/Swedish?
 
 ### Built With
 
-- []()
-- []()
+#### Frontend
+
+- Main Framework/Library: [React](https://reactjs.org/)
+  * State handling: [Redux](https://react-redux.js.org/)
+- React components: [Material-ui](https://material-ui.com/)
 - []()
 
 <!-- GETTING STARTED -->
@@ -112,7 +152,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/jalez/issue_board.git
+   git clone https://github.com/jalez/event-board.git
    ```
 2. Install NPM packages
    ```sh
@@ -131,7 +171,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/github_username/event-board/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -157,7 +197,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Jaakko Rajala - [@twitter_handle](https://twitter.com/twitter_handle) - jaakko.rajala@tuni.fi
 
-Project Link: [https://github.com/jalez/repo_name](https://github.com/jalez/repo_name)
+Project Link: [https://github.com/jalez/event-board](https://github.com/jalez/event-board)
 
 <!-- ACKNOWLEDGEMENTS -->
 
