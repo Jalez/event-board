@@ -13,12 +13,12 @@ const useStyles = makeStyles(() => ({
 	enter: {
 		animation: `$slideIn 1s linear`,
 	},
-	exit: {
+	out: {
 		position: 'static',
 		width: '100%',
 		height: 0,
 	},
-	out: {
+	exit: {
 		animation: `$slideOut 1s linear`,
 	},
 	'@keyframes slideOut': {
@@ -64,7 +64,6 @@ const Bulldozer = ({ itemToPush, children }) => {
 	}, [enterOrExit]);
 
 	const classes = useStyles();
-
 	return (
 		<div
 			className={clsx({

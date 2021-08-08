@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '100%',
 		borderRadius: '0%',
 		zIndex: 100,
+		opacity: 0.9,
 	},
 	backgroundAfterExit: (props) => ({
 		height: '0%',
@@ -35,23 +36,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 	'@keyframes appearEffect': {
 		'0%': {
-			opacity: 1,
+			opacity: 0.7,
 			borderRadius: '50%',
 		},
 		'100%': {
-			opacity: 1,
+			opacity: 0,
 			borderRadius: '0%',
 		},
 	},
 	'@keyframes exitEffect': {
 		'0%': {
-			opacity: 1,
+			opacity: 0.7,
 			borderRadius: '0%',
 			height: '100vmax',
 			width: '100vmax',
 		},
 		'100%': {
-			opacity: 1,
+			opacity: 0.7,
 			borderRadius: '100%',
 			height: '0%',
 			width: '0%',

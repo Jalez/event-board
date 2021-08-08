@@ -46,7 +46,7 @@ const Signals = ({ active, dimensions }) => {
 			clearTimeout(timeOut);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [signals]);
+	}, [signals, active]);
 
 	return (
 		<>

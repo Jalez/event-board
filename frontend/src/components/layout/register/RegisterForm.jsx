@@ -17,12 +17,12 @@ import {
 	slideOut,
 	unmount,
 } from '../../../redux/slide/sliderActions';
-import CardContainer from '../../utils/CardContainer';
-import FlexBox from '../../utils/FlexBox';
 import Header from '../../utils/Header';
 import UserInput from '../../utils/UserInput';
+import FlexBox from '../../utils/FlexBox';
+import CardContainer from '../../utils/CardContainer';
 
-const LoginForm = ({ history }) => {
+const RegisterForm = ({ history }) => {
 	const [destination, setDestination] = useState(null);
 	const dispatch = useDispatch();
 
@@ -30,8 +30,8 @@ const LoginForm = ({ history }) => {
 		if (destination) {
 			if (destination === '/') {
 				dispatch(slideDirection('up'));
-			} else if (destination === '/register') {
-				dispatch(slideDirection('right'));
+			} else if (destination === '/login') {
+				dispatch(slideDirection('left'));
 			}
 			dispatch(slideOut());
 		}
@@ -49,34 +49,49 @@ const LoginForm = ({ history }) => {
 	}, [destination]);
 
 	const toLogin = () => {
-		setDestination('/');
+		setDestination('/login');
 	};
 
 	const toRegister = () => {
-		setDestination('/register');
+		setDestination('/');
+	};
+
+	const content = {
+		direction: 'column',
+	};
+
+	const row = {
+		direction: 'row',
 	};
 
 	const loginButton = {
 		size: 'large',
 		color: 'primary',
 		variant: 'outlined',
-		onClick: toLogin,
+		onClick: toRegister,
 	};
 
 	return (
 		<CardContainer>
-			<FlexBox direction='column'>
-				<Header>Login</Header>
+			<FlexBox {...content}>
+				<Header>Register form</Header>
+				<FlexBox {...row}>
+					<UserInput>First Name</UserInput>
+					<UserInput>Last Name</UserInput>
+				</FlexBox>
 				<UserInput>Email</UserInput>
-				<UserInput type='password'>Password</UserInput>
-				<Button {...loginButton}>Login</Button>
-				<FlexBox direction='row'>
-					<Typography variant='body1'>No account yet?</Typography>
-					<Button onClick={toRegister}>SIGN UP</Button>
+				<FlexBox {...row}>
+					<UserInput type='password'>Password</UserInput>
+					<UserInput type='password'>Confirm password</UserInput>
+				</FlexBox>
+				<Button {...loginButton}>Register account</Button>
+				<FlexBox {...row}>
+					<Typography variant='body1'>Already have an account?</Typography>
+					<Button onClick={toLogin}>Sign in</Button>
 				</FlexBox>
 			</FlexBox>
 		</CardContainer>
 	);
 };
 
-export default withRouter(LoginForm);
+export default withRouter(RegisterForm);

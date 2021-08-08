@@ -12,8 +12,6 @@ const SignalBackground = ({ children }) => {
 		width: window.innerWidth,
 	});
 
-	console.log(on);
-
 	// Update dimensions
 	useEffect(() => {
 		const handleResize = () => {

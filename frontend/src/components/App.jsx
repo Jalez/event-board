@@ -29,7 +29,6 @@ const App = () => {
 				<Router>
 					<Switch>
 						{/* <Route path='/' exact></Route> */}
-
 						<Route path='/login'>
 							<Login />
 						</Route>
