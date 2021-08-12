@@ -1,59 +1,44 @@
 /** @format */
 
 // React imports
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 // Material-ui imports
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-// Redux actions
-import { backgroundOff } from '../../../redux/background/backgroundActions';
-import { navbarOn } from '../../../redux/navbar/navbarActions';
-import {
-	slideDirection,
-	slideOut,
-	unmount,
-} from '../../../redux/slide/sliderActions';
 import CardContainer from '../../utils/CardContainer';
 import FlexBox from '../../utils/FlexBox';
 import Header from '../../utils/Header';
 import UserInput from '../../utils/UserInput';
 
-const LoginForm = ({ history }) => {
-	const [destination, setDestination] = useState(null);
+// Redux actions
+import {
+	mount,
+	newSlideDestination,
+	unmount,
+} from '../../../redux/historySlider/sliderActions';
+
+const LoginForm = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (destination) {
-			if (destination === '/') {
-				dispatch(slideDirection('up'));
-			} else if (destination === '/register') {
-				dispatch(slideDirection('right'));
-			}
-			dispatch(slideOut());
-		}
+		dispatch(mount());
+
 		return () => {
-			if (destination) {
-				if (destination === '/') {
-					dispatch(backgroundOff());
-					dispatch(navbarOn());
-				}
-				dispatch(unmount());
-				history.push(destination);
-			}
+			// When component dismounts, we need to inform the HistorySlider
+			dispatch(unmount());
 		};
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [destination]);
+	}, []);
 
 	const toLogin = () => {
-		setDestination('/');
+		dispatch(newSlideDestination('/'));
 	};
 
 	const toRegister = () => {
-		setDestination('/register');
+		dispatch(newSlideDestination('/register'));
 	};
 
 	const loginButton = {
@@ -79,4 +64,4 @@ const LoginForm = ({ history }) => {
 	);
 };
 
-export default withRouter(LoginForm);
+export default LoginForm;

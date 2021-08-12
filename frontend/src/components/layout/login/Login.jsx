@@ -1,12 +1,11 @@
 /** @format */
 import React from 'react';
 import LoginForm from './LoginForm';
-import ReduxSlide from '../../utils/ReduxSlide';
+import HistorySlider from '../../utils/HistorySlider';
 import { Box, makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { navbarOff } from '../../../redux/navbar/navbarActions';
 import { backgroundOn } from '../../../redux/background/backgroundActions';
-import { slideIn } from '../../../redux/slide/sliderActions';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,9 +29,14 @@ const Login = () => {
 	dispatch(backgroundOn());
 	// dispatch(slideIn());
 
+	const direction = {
+		'/': 'up',
+		'/register': 'right',
+	};
+
 	return (
 		<div className={classes.root}>
-			<ReduxSlide>
+			<HistorySlider directions={direction}>
 				<Box
 					display='flex'
 					className={classes.box}
@@ -40,7 +44,7 @@ const Login = () => {
 					alignItems='center'>
 					<LoginForm />
 				</Box>
-			</ReduxSlide>
+			</HistorySlider>
 		</div>
 	);
 };

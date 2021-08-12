@@ -1,16 +1,37 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import {
+	backgroundOff,
+	backgroundOn,
+} from '../../redux/background/backgroundActions';
 import Background from './Background';
 import Signals from './Signals';
 
 const SignalBackground = ({ children }) => {
+	const location = useLocation();
 	const { background: on } = useSelector((state) => state);
 	const [dimensions, setDimensions] = useState({
 		height: window.innerHeight,
 		width: window.innerWidth,
 	});
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (location.pathname === '/') dispatch(backgroundOff());
+		else {
+			dispatch(backgroundOn());
+		}
+		return () => {
+			if (location) {
+				if (location === '/') {
+				}
+			}
+		};
+	}, [location, dispatch]);
 
 	// Update dimensions
 	useEffect(() => {

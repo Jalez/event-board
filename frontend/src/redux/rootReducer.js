@@ -1,15 +1,15 @@
 /** @format */
 
 import backgroundReducer from './background/backgroundReducer';
-import firstRenderReducer from './firstRender/firstRenderReducer';
+import { destinationReducer } from './destination/destinationReducer';
 import navbarReducer from './navbar/navbarReducer';
-import slideReducer from './slide/sliderReducer';
+import historySliderReducer from './historySlider/sliderReducer';
 
 const rootReducer = {
 	background: backgroundReducer,
 	navbar: navbarReducer,
-	slide: slideReducer,
-	firstRender: firstRenderReducer,
+	historySlider: historySliderReducer,
+	destination: destinationReducer,
 };
 
 export default rootReducer;

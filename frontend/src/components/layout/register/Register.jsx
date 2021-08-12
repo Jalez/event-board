@@ -1,12 +1,19 @@
 /** @format */
+
+// React imports
 import React from 'react';
-import RegisterForm from './RegisterForm';
-import ReduxSlide from '../../utils/ReduxSlide';
+
+// Redux imports
+import { useSelector } from 'react-redux';
+
+// Material-ui imports
 import { Box, makeStyles } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { navbarOff } from '../../../redux/navbar/navbarActions';
-import { backgroundOn } from '../../../redux/background/backgroundActions';
-import { slideIn } from '../../../redux/slide/sliderActions';
+
+// Own util imports
+import HistorySlider from '../../utils/HistorySlider';
+
+// RegisterOptions
+import RegisterOptions from './RegisterOptions';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,23 +31,27 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = () => {
 	const classes = useStyles();
-	const dispatch = useDispatch();
+	const location = useSelector((state) => state.location);
 
-	// dispatch(navbarOff());
-	dispatch(backgroundOn());
-	// dispatch(slideIn());
+	const directions = {
+		'/': 'up',
+		'/login': 'left',
+	};
+
+	const box = {
+		display: 'flex',
+		className: classes.box,
+		justifyContent: 'center',
+		alignItems: 'center',
+	};
 
 	return (
 		<div className={classes.root}>
-			<ReduxSlide>
-				<Box
-					display='flex'
-					className={classes.box}
-					justifyContent='center'
-					alignItems='center'>
-					<RegisterForm />
+			<HistorySlider destination={location} directions={directions}>
+				<Box {...box}>
+					<RegisterOptions />
 				</Box>
-			</ReduxSlide>
+			</HistorySlider>
 		</div>
 	);
 };

@@ -3,6 +3,7 @@
 import {
 	direction_change,
 	mount_child,
+	NEW_SLIDE_DESTINATION,
 	slide_in,
 	slide_out,
 	unmount_child,
@@ -15,18 +16,17 @@ export const slideDirection = (payload) => {
 	};
 };
 
-
 export const slideIn = () => {
 	return {
-		type: slide_in
-	}
-}
+		type: slide_in,
+	};
+};
 
 export const slideOut = () => {
 	return {
-		type: slide_out
-	}
-}
+		type: slide_out,
+	};
+};
 
 export const unmount = () => {
 	return {
@@ -37,5 +37,12 @@ export const unmount = () => {
 export const mount = () => {
 	return {
 		type: mount_child,
+	};
+};
+
+export const newSlideDestination = (newDestination) => {
+	return {
+		payload: newDestination,
+		type: NEW_SLIDE_DESTINATION,
 	};
 };

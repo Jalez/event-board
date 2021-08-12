@@ -24,9 +24,9 @@ const App = () => {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<MapContainer />
-				<SignalBackground />
 				<Router>
+					<MapContainer />
+					<SignalBackground />
 					<Switch>
 						{/* <Route path='/' exact></Route> */}
 						<Route path='/login'>

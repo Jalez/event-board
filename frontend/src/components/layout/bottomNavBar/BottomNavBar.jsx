@@ -1,17 +1,24 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
+import clsx from 'clsx';
+
+// Material-ui imports
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
+// Own component imports
 import SearchBar from './SearchBar';
 import MenuOptions from './MenuOptions';
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
+
+// Own Util imports
 import Bulldozer from '../../utils/Bulldozer';
-// import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(() => ({
 	overflow: {
@@ -64,36 +71,24 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const BottomNavBar = () => {
-	const { navbar } = useSelector((state) => state);
+const BottomNavBar = (History) => {
+	const location = useLocation();
 	const [enterOrExit, setEnterOrExit] = useState(null);
-	const [firstRender, setFirstRender] = useState(true);
 
 	useEffect(() => {
-		if (!firstRender) setEnterOrExit(navbar ? 'enter' : 'exit');
-		return () => {
-			setFirstRender(false);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [navbar]);
-
-	useEffect(() => {
-		let timeout;
-		if (enterOrExit) {
-			timeout = setTimeout(() => {
-				setEnterOrExit(null);
-			}, 1500);
+		if (location?.pathname === '/') {
+			if (enterOrExit !== 'enter') setEnterOrExit('enter');
+		} else {
+			if (enterOrExit !== 'exit') setEnterOrExit('exit');
 		}
-		return () => {
-			clearTimeout(timeout);
-		};
-	}, [enterOrExit]);
+		return () => {};
+	}, [location, enterOrExit]);
 
 	const classes = useStyles();
 
 	return (
 		<div className={classes.overflow}>
-			<Bulldozer itemToPush={navbar}>
+			<Bulldozer itemToPush={enterOrExit === 'enter'}>
 				<AppBar
 					className={clsx(classes.appBar, {
 						[classes.stickyPosition]: true,
@@ -110,7 +105,6 @@ const BottomNavBar = () => {
 					</Toolbar>
 				</AppBar>
 			</Bulldozer>
-			{/* </div> */}
 		</div>
 	);
 };
